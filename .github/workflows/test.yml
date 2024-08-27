@@ -47,10 +47,10 @@ jobs:
         if: startsWith(matrix.python-version, 'pypy') != true
         run: hatch test -i python=${{ matrix.python-version }} -x feature=scipy
       - name: Run tests (pypy-3.9)
-        if: ${{ matrix.python-version == pypy-3.9 }}
+        if: ${{ matrix.python-version == 'pypy-3.9' }}
         run: hatch test -i python=pypy3.9 -x feature=scipy
       - name: Run tests (pypy-3.10)
-        if: ${{ matrix.python-version == pypy-3.10 }}
+        if: ${{ matrix.python-version == 'pypy-3.10' }}
         run: hatch test -i python=pypy3.10 -x feature=scipy
       - name: Install Scipy prerequisites for Ubuntu
         if: startsWith(matrix.platform, 'ubuntu')
