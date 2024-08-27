@@ -70,3 +70,29 @@ extend-exclude = []
 lint.extend-ignore = ["E731"]
 lint.extend-select = ["I", "W"]
 line-length = 109
+
+[tool.hatch.envs.default]
+dependencies = ["coverage[toml]", "pytest", "pytest-cov"]
+
+[tool.hatch.envs.default.scripts]
+test = 'pytest --cov-report=term-missing --cov-config=pyproject.toml --cov=autograd --cov=tests'
+
+[tool.hatch.envs.hatch-test.overrides]
+matrix.version.env-vars = "PRODUCT_VERSION"
+matrix.feature.env-vars = "EXPERIMENTAL=true"
+matrix.feature.dependencies = [{ value = "scipy", if = ["scipy"] }]
+
+[[tool.hatch.envs.hatch-test.matrix]]
+python = ["3.8", "3.9", "3.10", "3.11", "3.12"]
+
+[[tool.hatch.envs.hatch-test.matrix]]
+python = ["3.8", "3.9", "3.10", "3.11", "3.12"]
+feature = ["scipy"]
+
+[[tool.hatch.envs.hatch-test.matrix]]
+python = ["pypy-3.9", "pypy3.10"]
+
+[[tool.hatch.envs.hatch-test.matrix]]
+python = ["pypy3.9", "pypy3.10"]
+feature = ["scipy"]
+
